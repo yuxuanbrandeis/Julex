@@ -62,7 +62,7 @@ for dir_name in os.listdir(root_dir):
             
             
             
-# %%% 
+# %%%   # will add as a dictionary format: CIK: MDA_Text
 
 ## PART B
 list_for_MDA=[]
