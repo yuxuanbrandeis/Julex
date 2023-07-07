@@ -122,7 +122,9 @@ def extract(file_name):
     
     
 ### GOOD EXAMPLE FOR 10Q: https://www.sec.gov/Archives/edgar/data/1750/000110465922036639/air-20220322x10q.htm
+### THE TXT FILE TO USE FOR CODE: https://www.sec.gov/Archives/edgar/data/1750/000110465922036639/0001104659-22-036639.txt
 ### BAD  EXAMPLE FOR 10Q: https://www.sec.gov/Archives/edgar/data/72331/000007233122000016/ndsn-20220131.htm  
+### THE TXT FILE TO USE FOR CODE: https://www.sec.gov/Archives/edgar/data/72331/000007233122000016/0000072331-22-000016.txt
  
     
     
