@@ -163,6 +163,16 @@ if end_index_1 == -1:
         end_index_1 = -1
         end_index_2 = -1
 
+#for testing purposes, when we run the code, we want to check the len of the list and figure out empty lists count using following code:
+print(len(list_for_MDA))
+
+empty_count = 0
+
+for item in list_for_MDA:
+    if len(item) == 0:
+        empty_count += 1
+
+print("Number of empty items:", empty_count)  
 
 # Check if there are at least 2000 characters between the occurrences
 if end_index_1 - start_index_1 > 2000:
