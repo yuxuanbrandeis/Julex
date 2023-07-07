@@ -59,8 +59,29 @@ for dir_name in os.listdir(root_dir):
             
             a.append(extracted_text)
             
-            
-            
+ # We want to combine CIK number with extracted MDA to check which companies need to fix format/extraction, here is the coden for CIK extraction           
+import os
+
+cik_list = []  # List to store CIK values
+
+# Loop through each directory in the root directory
+for dir_name in os.listdir(root_dir):
+    dir_path = os.path.join(root_dir, dir_name)
+
+    # Check if it is a directory
+    if os.path.isdir(dir_path):
+        # Loop through each file in the directory
+        for file_name in os.listdir(dir_path):
+            file_path = os.path.join(dir_path, file_name)
+
+            # Extract the CIK from the file name
+            cik = os.path.splitext(file_name)[0]  # Assuming the CIK is present in the file name without the extension
+            cik_list.append(cik)  # Append CIK to the list
+
+# Print the CIK list
+print("CIK List:", cik_list)
+
+
 # %%% 
 
 ## PART B
@@ -106,7 +127,12 @@ for i in a:
 
     except Exception as e:
         print("Error occurred while parsing HTML:", str(e))
-        
+
+
+
+#
+cik_mda_dict = dict(zip(cik_list, list_for_MDA))
+#combine cik with corresponding MDA
         
 # %%%
 
