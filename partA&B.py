@@ -1,14 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul  5 14:56:59 2023
-
-@author: hasanallahyarov
-"""
-
 ## PART A
 import os
 from bs4 import BeautifulSoup
+import re
 
 a=[]
 
@@ -28,29 +21,35 @@ for dir_name in os.listdir(root_dir):
             # Open the file and perform operations
             with open(file_path, 'r') as file:
                 file_content = file.read()
+                        
             
-            target_string_1 = "Discussion and Analysis of Financial Condition and Results of Operations"
+            target_string_1 = "Discussion and Analysis of Financial Condition"
             start_index_1 = file_content.lower().find(target_string_1.lower())
-
+            
             start_index_2 = file_content.lower().find(target_string_1.lower(), start_index_1+1)
+            
+            
+            
+            
+            
+            pattern = re.compile(r"and Qualitative Disclosure[s]? About Market Risk", re.IGNORECASE)
+            
+            matches = re.finditer(pattern, file_content)
+            
+            indices = [match.start() for match in matches]
+            
+            if len(indices) >= 1:
+                end_index_1 = indices[0]
+                if len(indices) >= 2:
+                    end_index_2 = indices[1]
+                else:
+                    end_index_2 = -1
+            else:
+                # Handle the case when no occurrence is found
+                end_index_1 = -1
+                end_index_2 = -1
 
-            target_string_2 = "and Qualitative Disclosures About Market Risk"
-            end_index_1 = file_content.lower().find(target_string_2.lower())
-
-            end_index_2 = file_content.lower().find(target_string_2.lower(),end_index_1+1)
-
-            # Find the indices of the first occurrence of "MDA"
-            #start_index_1 = file_content.find("Discussion and Analysis of Financial Condition and Results of Operations")
-
-            # Find the indices of the first occurrence of "ITEM3"
-            #end_index_1 = file_content.find("Quantitative and Qualitative Disclosures About Market Risk")
-
-            # Find the indices of the second occurrence of "MDA"
-            #start_index_2 = file_content.find("Discussion and Analysis of Financial Condition and Results of Operations", start_index_1 + 1)
-
-            # Find the indices of the second occurrence of "Item3" 
-            #end_index_2 = file_content.find("Quantitative and Qualitative Disclosures About Market Risk", end_index_1 + 1)
-
+            
             # Check if there are at least 2000 characters between the occurrences
             if end_index_1 - start_index_1 > 2000:
                 # Extract the text between the occurrences
@@ -62,7 +61,7 @@ for dir_name in os.listdir(root_dir):
             
             
             
-# %%%   # will add as a dictionary format: CIK: MDA_Text
+# %%% 
 
 ## PART B
 list_for_MDA=[]
@@ -112,32 +111,58 @@ for i in a:
 # %%%
 
 ## FOR INDIVIDUAL ONE TO TRY
+import re
 
-file_path = '/Users/hasanallahyarov/Desktop/files/2022/QTR1/320193/0000320193-22-000007.txt'
+file_path = '/Users/hasanallahyarov/Desktop/files/2022/QTR1/8858/0000008858-22-000010.txt'
 with open(file_path, 'r') as file:
     file_content = file.read()
 
-target_string_1 = "Discussion and Analysis of Financial Condition and Results of Operations"
+
+target_string_1 = "Discussion and Analysis of Financial Condition"
 start_index_1 = file_content.lower().find(target_string_1.lower())
 
 start_index_2 = file_content.lower().find(target_string_1.lower(), start_index_1+1)
 
-target_string_2 = "and Qualitative Disclosures About Market Risk"
-end_index_1 = file_content.lower().find(target_string_2.lower())
 
-end_index_2 = file_content.lower().find(target_string_2.lower(),end_index_1+1)
 
-# Find the indices of the first occurrence of "MDA"
-#start_index_1 = file_content.find("Discussion and Analysis of Financial Condition and Results of Operations")
 
-# Find the indices of the first occurrence of "ITEM3"
-#end_index_1 = file_content.find("Quantitative and Qualitative Disclosures About Market Risk")
 
-# Find the indices of the second occurrence of "MDA"
-#start_index_2 = file_content.find("Discussion and Analysis of Financial Condition and Results of Operations", start_index_1 + 1)
+pattern = re.compile(r"and Qualitative Disclosure[s]? About Market Risk", re.IGNORECASE)
 
-# Find the indices of the second occurrence of "Item3" 
-#end_index_2 = file_content.find("Quantitative and Qualitative Disclosures About Market Risk", end_index_1 + 1)
+matches = re.finditer(pattern, file_content)
+
+indices = [match.start() for match in matches]
+
+if len(indices) >= 1:
+    end_index_1 = indices[0]
+    if len(indices) >= 2:
+        end_index_2 = indices[1]
+    else:
+        end_index_2 = -1
+else:
+    # Handle the case when no occurrence is found
+    end_index_1 = -1
+    end_index_2 = -1
+
+
+if end_index_1 == -1:
+    pattern = re.compile(r"Control[s]? and Procedure[s]?", re.IGNORECASE)
+
+    matches = re.finditer(pattern, file_content)
+
+    indices = [match.start() for match in matches]
+
+    if len(indices) >= 1:
+        end_index_1 = indices[0]
+        if len(indices) >= 2:
+            end_index_2 = indices[1]
+        else:
+            end_index_2 = -1
+    else:
+        # Handle the case when no occurrence is found
+        end_index_1 = -1
+        end_index_2 = -1
+
 
 # Check if there are at least 2000 characters between the occurrences
 if end_index_1 - start_index_1 > 2000:
@@ -153,7 +178,7 @@ else:
 
 from bs4 import BeautifulSoup
 
-
+import re
 
 html_text = extracted_text
 # Create a BeautifulSoup object
@@ -173,8 +198,11 @@ modified_html_text = str(soup)
 # Assuming the HTML content is stored in the variable 'html_text'
 soup = BeautifulSoup(modified_html_text, 'html.parser')
 
-# Find all elements with style attribute containing 'text-align:center' and remove them
-elements = soup.find_all(lambda tag: tag.has_attr('style') and 'text-align:center' in tag['style'])
+# Define the regular expression pattern for style matching
+pattern = re.compile(r'text-align\s*:\s*center', re.IGNORECASE)
+
+# Find all elements with style attribute matching the pattern and remove them
+elements = soup.find_all(lambda tag: tag.has_attr('style') and pattern.search(tag['style']))
 for element in elements:
     element.extract()
 
@@ -188,7 +216,7 @@ text = soup.get_text()
 
 
 string = text
-clean_string = ''.join(string.replace('\n', ' ').replace('\u200b', '').replace('\xa0', ''))
+clean_string = ''.join(string.replace('\n', ' ').replace('\u200b', '.').replace('\xa0', '.').replace('&nbsp;',''))
 print(clean_string)
 
 # %%%
