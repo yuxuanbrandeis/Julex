@@ -3,27 +3,7 @@
 
 Respond to Yeabin's email :
 
-We use modified code:
-def clean_extracted_text(extracted_text):
-    try:
-        soup = BeautifulSoup(extracted_text, 'html.parser')
-
-        # Remove subheadings and their descendants
-        subheadings = soup.find_all(re.compile('^h[1-6]$'))  # Find all heading tags (h1-h6)
-        for subheading in subheadings:
-            subheading.extract()
-
-        # Get the modified text content
-        text = soup.get_text()
-
-        # Clean the text
-        clean_string = ''.join(text.replace('\n', ' ').replace('\u200b', '').replace('\xa0', ''))
-        return clean_string
-
-    except Exception as e:
-        print("Error occurred while parsing HTML:", str(e))
-        return None
-
+We use modified code, in this function, we returned the list of a which is the extracted text from all the loop throughed MD&A report. The _name_ =="main" block return
 
 def extract_text_from_files(root_dir):
     a = []
@@ -74,7 +54,7 @@ def extract_text_from_files(root_dir):
                     a.append(cleaned_text)
 
     return a
-
+#here is the main block to test the result with the HTML involved MD&A text 
 
 if __name__ == "__main__":
     # Prompt the user to input the root directory path
@@ -86,3 +66,4 @@ if __name__ == "__main__":
     # Print the extracted text
     for extracted_text in extracted_text_list:
         print(extracted_text)
+
