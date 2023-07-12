@@ -3,7 +3,7 @@
 
 Respond to Yeabin's email :
 
-We use modified code, in this function, we returned the list of a which is the extracted text from all the loop throughed MD&A report. The _name_ =="main" block return
+a. We use modified code, in this function, we returned the list of a which is the extracted text from all the loop throughed MD&A report. The _name_ =="main" block return. In Yuting's code from JC A&B, she also provided idea on how to remove tags and subheadings. 
 
 def extract_text_from_files(root_dir):
     a = []
@@ -66,4 +66,13 @@ if __name__ == "__main__":
     # Print the extracted text
     for extracted_text in extracted_text_list:
         print(extracted_text)
+
+Endpoint string of your results for the indivdiual text usually stopped at Item 3 - Quantitative after part B, or did you mean the slicing from part A? we will continue the process of optimizing the code to slice/remove tags 
+
+
+sentiment assessment part with Apple 10-Q for Dec 2021/2022
+
+- Dec 2021 has a slightly more positive score 3/5 compared to 2022 which is slightly negative 2/5
+- measurement metric: based on net sales/gross margin for quantitive evidence.
+- word count: Dec 2021 has more word count concering the impact of Covid's disruption on oepration, some of the sentiment words such as "uncertain" "would occur" with no scope therefore would not conclude it is a strong negative impact 
 
