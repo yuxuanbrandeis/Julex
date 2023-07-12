@@ -7,7 +7,7 @@ root_dir = '/Users/19599/OneDrive/Desktop/20221107'
 
 def extract_files(root_dir):
     a = []
-    cik_list = []
+    cik_list = []  # List to store CIK values
 
     # Loop through each directory in the root directory
     for dir_name in os.listdir(root_dir):
@@ -24,6 +24,7 @@ def extract_files(root_dir):
                     file_content = file.read()
 
                 # Extract CIK from the file name
+                # We want to combine CIK number with extracted MDA to check which companies need to fix format/extraction, here is the coden for CIK extraction    
                 cik = os.path.splitext(file_name)[0]
                 cik_list.append(cik)
 
