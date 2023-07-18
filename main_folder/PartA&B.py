@@ -91,6 +91,7 @@ def extract(root_dir, dataframe=None):
                 
                 data = {'Directory': dir_name, 'Value': clean_string}
                 dataframe = dataframe.append(data, ignore_index=True)
+        dataframe.to_excel('output10.xlsx', index=False)
 
     return dataframe
                 
