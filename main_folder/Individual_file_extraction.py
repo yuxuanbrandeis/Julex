@@ -1,6 +1,7 @@
 # Please try to use Push/Pull/Merge when update/decomit the code.
 
-def extract(file_name):
+    
+  def extract(file_name):
     import re
     from bs4 import BeautifulSoup
     
@@ -8,15 +9,22 @@ def extract(file_name):
     with open(file_path, 'r') as file:
         file_content = file.read()
     
+    pattern = re.compile(r'\bDiscussion\s+and\s+Analysis\s+of\s+Financial\s+Condition[s]?\b', re.IGNORECASE | re.DOTALL)
+    matches = re.finditer(pattern, file_content)
+    indices = [match.start() for match in matches]
     
-    target_string_1 = "Discussion and Analysis of Financial Condition"
-    start_index_1 = file_content.lower().find(target_string_1.lower())
-    
-    start_index_2 = file_content.lower().find(target_string_1.lower(), start_index_1+1)
-    
-    
-    
-    
+    if len(indices) >= 1:
+        start_index_1 = indices[0]
+        if len(indices) >= 2:
+            start_index_2 = indices[1]
+        else:
+            start_index_2 = -1
+    else:
+        # Handle the case when no occurrence is found
+        start_index_1 = -1
+        start_index_2 = -1
+ 
+       
     
     pattern = re.compile(r"and Qualitative Disclosure[s]? About Market Risk", re.IGNORECASE)
     
@@ -57,9 +65,6 @@ def extract(file_name):
     
     # Check if there are at least 2000 characters between the occurrences
     if end_index_2==-1 and start_index_2==-1:
-        extracted_text = file_content[start_index_1:end_index_1]
-    elif end_index_1 - start_index_1 > 2500:
-        # Extract the text between the occurrences
         extracted_text = file_content[start_index_1:end_index_1]
     else:
         extracted_text = file_content[start_index_2:end_index_2]
@@ -119,3 +124,6 @@ def extract(file_name):
     
     clean_string = re.sub(r"\s*(?:item\s*7a\.?|item\s*4\.?|item\s*3\.?|item\s*8\.?|item\s+7a\.?|item\s+4\.?|item\s+3\.?|item\s+8\.?)\s*$", "", clean_string, flags=re.IGNORECASE)
     return clean_string
+    
+    
+
