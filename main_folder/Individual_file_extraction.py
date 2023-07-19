@@ -117,5 +117,5 @@ def extract(file_name):
     
     clean_string= "Management's " + clean_string
     
-    clean_string = re.sub(r"\s*(?:item\s*7a\.?|item\s*4\.?|item\s*8\.?|item\s+7a\.?|item\s+4\.?|item\s+8\.?)\s*$", "", clean_string, flags=re.IGNORECASE)
+    clean_string = re.sub(r"\s*(?:item\s*7a\.?|item\s*4\.?|item\s*3\.?|item\s*8\.?|item\s+7a\.?|item\s+4\.?|item\s+3\.?|item\s+8\.?)\s*$", "", clean_string, flags=re.IGNORECASE)
     return clean_string
