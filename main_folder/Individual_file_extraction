@@ -54,7 +54,9 @@ def extract(file_name):
     
     
     # Check if there are at least 2000 characters between the occurrences
-    if end_index_1 - start_index_1 > 2000:
+    if end_index_2==-1 and start_index_2==-1:
+        extracted_text = file_content[start_index_1:end_index_1]
+    elif end_index_1 - start_index_1 > 2500:
         # Extract the text between the occurrences
         extracted_text = file_content[start_index_1:end_index_1]
     else:
