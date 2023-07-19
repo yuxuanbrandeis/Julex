@@ -57,8 +57,10 @@ def extract(root_dir, dataframe=None):
                         # Handle the case when no occurrence is found
                         end_index_1 = -1
                         end_index_2 = -1
-                
-                if end_index_1 - start_index_1 > 2500:
+
+                if end_index_2==-1 and start_index_2==-1:
+                    extracted_text = file_content[start_index_1:end_index_1]
+                elif end_index_1 - start_index_1 > 2500:
                     # Extract the text between the occurrences
                     extracted_text = file_content[start_index_1:end_index_1]
                 else:
