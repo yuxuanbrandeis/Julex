@@ -1,3 +1,5 @@
+# Please try to use Push/Pull/Merge when update/decomit the code.
+
 def extract(file_name):
     import re
     from bs4 import BeautifulSoup
