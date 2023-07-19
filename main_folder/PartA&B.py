@@ -1,12 +1,35 @@
-
 def extract(root_dir, dataframe=None):
     import re
     from bs4 import BeautifulSoup
     import os
     import pandas as pd
+    import requests
+    
+    
+    
+    # create request header
+    headers = {'User-Agent': "hasanallahyarov@address.com"}
+
+    # get all companies data
+    companyTickers = requests.get(
+        "https://www.sec.gov/files/company_tickers.json",
+        headers=headers
+        )
+
+
+
+
+
+
+    # dictionary to dataframe
+    companyData = pd.DataFrame.from_dict(companyTickers.json(),
+                                         orient='index')
+                    
+    
+    
     
     if dataframe is None:
-        dataframe = pd.DataFrame(columns=['Directory', 'Value'])
+        dataframe = pd.DataFrame(columns=['cik_str', 'Value'])
     
     # Loop through each directory in the root directory
     for dir_name in os.listdir(root_dir):
@@ -22,10 +45,22 @@ def extract(root_dir, dataframe=None):
                 with open(file_path, 'r') as file:
                     file_content = file.read()
 
-                target_string_1 = "Discussion and Analysis of Financial Condition"
-                start_index_1 = file_content.lower().find(target_string_1.lower())
-                
-                start_index_2 = file_content.lower().find(target_string_1.lower(), start_index_1+1)
+    
+                pattern = re.compile(r'\bDiscussion\s+and\s+Analysis\s+of\s+Financial\s+Condition[s]?\b', re.IGNORECASE | re.DOTALL)
+                matches = re.finditer(pattern, file_content)
+                indices = [match.start() for match in matches]
+    
+                if len(indices) >= 1:
+                    start_index_1 = indices[0]
+                    if len(indices) >= 2:
+                        start_index_2 = indices[1]
+                    else:
+                        start_index_2 = -1
+                else:
+                    # Handle the case when no occurrence is found
+                    start_index_1 = -1
+                    start_index_2 = -1
+        
                 
                 pattern = re.compile(r"and Qualitative Disclosure[s]? About Market Risk", re.IGNORECASE)
                 matches = re.finditer(pattern, file_content)
@@ -60,9 +95,6 @@ def extract(root_dir, dataframe=None):
 
                 if end_index_2==-1 and start_index_2==-1:
                     extracted_text = file_content[start_index_1:end_index_1]
-                elif end_index_1 - start_index_1 > 2500:
-                    # Extract the text between the occurrences
-                    extracted_text = file_content[start_index_1:end_index_1]
                 else:
                     extracted_text = file_content[start_index_2:end_index_2]
                 
@@ -93,9 +125,12 @@ def extract(root_dir, dataframe=None):
                 
                 clean_string = "Management's " + clean_string
                 
-                data = {'Directory': dir_name, 'Value': clean_string}
+                data = {'cik_str': dir_name, 'Value': clean_string}
                 dataframe = dataframe.append(data, ignore_index=True)
-        dataframe.to_excel('output10.xlsx', index=False)
+        # Merge the dataframes based on CIK numbers
+        dataframe['cik_str'] = dataframe['cik_str'].astype(str)
+        companyData['cik_str'] = companyData['cik_str'].astype(str)
+        merged_df = pd.merge(dataframe, companyData, on='cik_str', how='left')
+        merged_df.to_excel('output11.xlsx', index=False)
 
-    return dataframe
-                
+    return merged_df
