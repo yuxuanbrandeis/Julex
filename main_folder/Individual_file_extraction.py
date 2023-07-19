@@ -114,4 +114,4 @@ def extract(file_name):
     clean_string = re.sub(r"\bquantitative\b", "", clean_string, flags=re.IGNORECASE).strip()
     
     clean_string= "Management's " + clean_string
-    print(clean_string)
+    return clean_string
