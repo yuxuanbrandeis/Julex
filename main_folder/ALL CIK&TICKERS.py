@@ -10,11 +10,6 @@ companyTickers = requests.get(
     headers=headers
     )
 
-
-
-
-
-
 # dictionary to dataframe
 companyData = pd.DataFrame.from_dict(companyTickers.json(),
                                      orient='index')
