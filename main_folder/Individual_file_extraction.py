@@ -1,7 +1,6 @@
 # Please try to use Push/Pull/Merge when update/decomit the code.
 
-    
-  def extract(file_name):
+ def extract(file_name):
     import re
     from bs4 import BeautifulSoup
     
@@ -23,10 +22,19 @@
         # Handle the case when no occurrence is found
         start_index_1 = -1
         start_index_2 = -1
- 
-       
     
-    pattern = re.compile(r"and Qualitative Disclosure[s]? About Market Risk", re.IGNORECASE)
+
+    
+    #target_string_1 = "Discussion and Analysis of Financial Condition"
+    #start_index_1 = file_content.lower().find(target_string_1.lower())
+    #
+    #start_index_2 = file_content.lower().find(target_string_1.lower(), start_index_1+1)
+    
+    
+    
+    
+    
+    pattern = re.compile(r"Disclosure[s]? About Market Risk", re.IGNORECASE)
     
     matches = re.finditer(pattern, file_content)
     
@@ -113,16 +121,21 @@
     
     
     string = text
-    clean_string = ''.join(string.replace('\n', ' ').replace('\u200b', '.').replace('\xa0', '.').replace('&nbsp;',''))
+    clean_string = ''.join(string.replace('\n', '.').replace('\u200b', ' ').replace('\xa0', ' ' ).replace('&nbsp;',' '))
     
 
     clean_string = re.sub(r"(?i)table of contents", "", clean_string)
 
-    clean_string = re.sub(r"\bquantitative\b", "", clean_string, flags=re.IGNORECASE).strip()
+    clean_string = re.sub(r"\bquantitative and qualitative\b", "", clean_string, flags=re.IGNORECASE).strip()
     
     clean_string= "Management's " + clean_string
     
     clean_string = re.sub(r"\s*(?:item\s*7a\.?|item\s*4\.?|item\s*3\.?|item\s*8\.?|item\s+7a\.?|item\s+4\.?|item\s+3\.?|item\s+8\.?)\s*$", "", clean_string, flags=re.IGNORECASE)
+    
+    clean_string =  re.sub(r"[•;]", ".", clean_string)
+    
+    clean_string =  re.sub(r'\s*\.\s*(\.\s*)*', '. ', clean_string)
+    clean_string = clean_string.strip()
     return clean_string
     
     
