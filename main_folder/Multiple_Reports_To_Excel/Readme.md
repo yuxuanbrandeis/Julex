@@ -9,6 +9,7 @@ It will save teh output to excel file, which will contain:
 The Clean MDA PART, CIK, TICKER, TITLE, DOCUMENT TYPE(10-Q or 10-K), SENTIMENT SCORE, FLS_PERCENTAGE
 
 
+
 An example of 'path_to_directory':
 
 If the file for 2022 year, 2022-01-03 for CIK-1013237 is here:
