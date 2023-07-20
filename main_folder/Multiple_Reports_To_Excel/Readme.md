@@ -4,7 +4,7 @@
 
 ### extract('path_to_directory')
 
-### It will save teh output to excel file, which will contain:
+### It will save the output to an excel file, which will contain:
 
 ### The Clean MDA PART, CIK, TICKER, TITLE, DOCUMENT TYPE(10-Q or 10-K), SENTIMENT SCORE, FLS_PERCENTAGE
 
