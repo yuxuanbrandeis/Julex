@@ -1,4 +1,3 @@
-
 from nltk.tokenize import  sent_tokenize
 # Machine Learning modules used to prepare and measure text
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -12,6 +11,7 @@ finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-fls
 tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-fls')
 
 nlp = pipeline("text-classification", model=finbert, tokenizer=tokenizer)
+
 
 # Sentiment - Download the Pre-trained transformer used to process our raw text
 sent_tokenizer = AutoTokenizer.from_pretrained("ProsusAI/finbert")
@@ -33,10 +33,22 @@ def evaluate(filings):
     # Define the container to collect stats related to the sentiment scores
     # for all forward-looking statement
     sentiments = torch.Tensor([0,0,0])
-
+    
+    for sentence in sentences:
+        inputs = tokenizer(sentence, return_tensors="pt")
+        tensor = inputs.input_ids.size()[1] 
+        if tensor>512:
+            x=len(sentence)//2
+            new_sentence_1=sentence[:x]
+            new_sentence_2=sentence[x:]
+            sentences.remove(sentence)
+            sentences.append(new_sentence_1)
+            sentences.append(new_sentence_2)
+            
     # Process each sentence, converting into tokens required by the FinBert model.
     for sentence in sentences:
         # FLS prediction
+        #print(sentence)
         prediction = nlp(sentence, top_k=3)[0]['label']
 
         # Capture FLS statements
@@ -64,8 +76,8 @@ def evaluate(filings):
     sentiments = sentiments.divide(len(sentences))
 
     score = model.config.id2label[sentiments.argmax().item()]
-    print(f'Filing: contains {len(sentences)} sentences of which {len(fls)} are "FLS"  with a sentiment of: {sentiments} => {score}')
+    #print(f'Filing: contains {len(sentences)} sentences of which {len(fls)} are "FLS"  with a sentiment of: {sentiments} => {score}')
     
 
-# Add the measures to our results table
+
     return fls_pct, score
