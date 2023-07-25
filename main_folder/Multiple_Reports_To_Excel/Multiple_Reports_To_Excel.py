@@ -52,7 +52,7 @@ def extract(root_dir, dataframe=None):
                         if file_name.endswith('.txt'):
                         
                         # Open the file and perform operations
-                            with open(file_path, 'r') as file:
+                            with open(file_path, 'r', encoding= 'utf-8') as file:
                                 file_content = file.read()
     
     
