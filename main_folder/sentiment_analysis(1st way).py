@@ -75,9 +75,16 @@ def evaluate(filings):
     # Record the resulting sentiment for 'FLS' sentences within this section
     sentiments = sentiments.divide(len(sentences))
 
-    score = model.config.id2label[sentiments.argmax().item()]
-    #print(f'Filing: contains {len(sentences)} sentences of which {len(fls)} are "FLS"  with a sentiment of: {sentiments} => {score}')
-    
-
+    try:
+      score = model.config.id2label[sentiments.argmax().item()]
+    except RuntimeError as e:
+      if "size of tensor a" in str(e):
+        # Handle the error here or simply ignore it
+        print("Warning: Tensor size mismatch in sentiment analysis. Continuing with the next iteration.")
+        score = "UNKNOWN"
+      else:
+        # If it's a different RuntimeError, you might want to handle it accordingly
+        print("An unexpected RuntimeError occurred in sentiment analysis:", e)
+        score = "UNKNOWN"
 
     return fls_pct, score
