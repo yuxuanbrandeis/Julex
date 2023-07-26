@@ -1,6 +1,4 @@
-# Please try to use Push/Pull/Merge when update/decomit the code.
-
- def extract(file_name):
+def extract(file_name):
     import re
     from bs4 import BeautifulSoup
     
@@ -11,18 +9,8 @@
     pattern = re.compile(r'\bDiscussion\s+and\s+Analysis\s+of\s+Financial\s+Condition[s]?\b', re.IGNORECASE | re.DOTALL)
     matches = re.finditer(pattern, file_content)
     indices = [match.start() for match in matches]
-    
-    if len(indices) >= 1:
-        start_index_1 = indices[0]
-        if len(indices) >= 2:
-            start_index_2 = indices[1]
-        else:
-            start_index_2 = -1
-    else:
-        # Handle the case when no occurrence is found
-        start_index_1 = -1
-        start_index_2 = -1
-    
+
+    start_index_1 = indices[-1]
 
     
     #target_string_1 = "Discussion and Analysis of Financial Condition"
@@ -40,16 +28,7 @@
     
     indices = [match.start() for match in matches]
     
-    if len(indices) >= 1:
-        end_index_1 = indices[0]
-        if len(indices) >= 2:
-            end_index_2 = indices[1]
-        else:
-            end_index_2 = -1
-    else:
-        # Handle the case when no occurrence is found
-        end_index_1 = -1
-        end_index_2 = -1
+    end_index_1 = indices[-1]
     
     
     if end_index_1 == -1:
@@ -59,23 +38,12 @@
     
         indices = [match.start() for match in matches]
     
-        if len(indices) >= 1:
-            end_index_1 = indices[0]
-            if len(indices) >= 2:
-                end_index_2 = indices[1]
-            else:
-                end_index_2 = -1
-        else:
-            # Handle the case when no occurrence is found
-            end_index_1 = -1
-            end_index_2 = -1
+        end_index_1 = indices[-1]
     
     
-    # Check if there are at least 2000 characters between the occurrences
-    if end_index_2==-1 and start_index_2==-1:
-        extracted_text = file_content[start_index_1:end_index_1]
-    else:
-        extracted_text = file_content[start_index_2:end_index_2]
+
+    extracted_text = file_content[start_index_1:end_index_1]
+
     
     # Print the extracted text
     #print(extracted_text)
