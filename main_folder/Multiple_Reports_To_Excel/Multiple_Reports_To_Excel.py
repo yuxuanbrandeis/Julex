@@ -29,7 +29,7 @@ def extract(root_dir, dataframe=None):
     
     ## CLeaning
     if dataframe is None:
-        dataframe = pd.DataFrame(columns=['cik_str', 'Filed_At','document_type','FLS_pct','Score','num_words','Value'])
+        dataframe = pd.DataFrame(columns=['cik_str', 'Filed_At','document_type','FLS_pct','Score','num_words','Value']) #should include date columns
         
     for dir_name in os.listdir(root_dir):
         dir_path = os.path.join(root_dir, dir_name)
