@@ -16,6 +16,23 @@ def extract(root_dir, dataframe=None):
         headers=headers
         )
 
+ # get all companies data
+    companyTickers = requests.get("https://www.sec.gov/files/company_tickers.json",headers=headers)
+
+    def get_submission_type(dir_name): # 10k-10k
+        pattern = re.compile(r"\b10-(Q|K)\b", re.IGNORECASE)
+        matches = re.search(pattern, dir_name)
+    
+        if matches:
+            return matches.group(0).upper()
+    
+        return None
+    
+   
+# Function to count words in the text
+    def count_words(text):
+        # Implement your word count logic here
+        return len(text.split())
 
 
 
