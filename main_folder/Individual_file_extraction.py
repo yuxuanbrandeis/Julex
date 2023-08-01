@@ -1,8 +1,18 @@
-# Please try to use Push/Pull/Merge when update/decomit the code.
+import re
+from bs4 import BeautifulSoup
 
 def extract(file_name):
-    import re
-    from bs4 import BeautifulSoup
+    """
+    Here, you have to explain what this function does. 
+    eg) This function calculates something...
+    
+    Parameters:
+        file_name (type of this parameter): Explain the paramter
+        eg) file_name (int): the number for which .... 
+    Returns:
+        Type of return: explain the return value
+        eg) int or float: The square of the input number.
+    """
     
     file_path = file_name
     with open(file_path, 'r') as file:
