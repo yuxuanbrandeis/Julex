@@ -129,7 +129,7 @@ def extract(root_dir, dataframe=None):
                             text = soup.get_text()
                             
                             string = text
-                            clean_string = ''.join(string.replace('\n', ' . ').replace('\u200b', ' ').replace('\xa0', ' ').replace('&nbsp;',' '))
+                            clean_string = ''.join(string.replace('\n', ' . ').replace('\u200b', ' ').replace('\xa0', ' ').replace('&nbsp;',' ').replace('&NBSP;', ' ').replace('&LT;', 'LT').replace('&#60;', 'LT').replace('&QUOT;', ''))
                             
                             clean_string = re.sub(r"(?i)table of contents", "", clean_string)
                             clean_string = re.sub(r"\bquantitative and Qualitative\b", "", clean_string, flags=re.IGNORECASE).strip()
