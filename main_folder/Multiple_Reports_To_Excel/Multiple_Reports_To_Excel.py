@@ -177,20 +177,14 @@ def extract(root_dir, dataframe=None):
             
 # %%% Document Type
 
-from bs4 import BeautifulSoup
-# Parse the response (the XML flag works better than HTML for 10Ks)
 def document_type(file):
-    soup = BeautifulSoup(file, 'lxml')
-    
-    for filing_document in soup.find_all('document'): # The document tags contain the various components of the total 10K filing pack
+    x=file[:1000]
+    if  "10-K" in x:
+        y="10-K"
+    elif "10-Q" in x:
+        y="10-Q"
         
-        # The 'type' tag contains the document type
-        document_type = filing_document.type.find(text=True, recursive=False).strip()
-        
-        if document_type == "10-K" or document_type=="10-Q": # Once the 10K text body is found
-            doc=document_type
-    return doc
-
+    return y
 
 
 
