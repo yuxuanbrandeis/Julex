@@ -56,6 +56,9 @@ def extract(root_dir, dataframe=None):
     
     
                             pattern = re.compile(r'\bDiscussion\s+and\s+Analysis\s+of\s+Financial\s+Condition[s]?\b', re.IGNORECASE | re.DOTALL)
+                         #if the heading is bold in HTML FORMAT then use 
+                         #pattern = re.compile(r'<b>\s*Management\s+Discussion\s+and\s+Analysis\s*</b>', re.IGNORECASE | re.DOTALL)
+
                             matches = re.finditer(pattern, file_content)
                             indices = [match.start() for match in matches]
     
