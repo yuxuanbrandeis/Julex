@@ -1,7 +1,11 @@
+# This readme file give short description on how this repository should be used and how can we leverage each python file/result
+
+## Mutiple_Report_To_Excel Folder
+Contains python script which contains module of our extraction Algorithm, python file contains 3 main function: 1. extraction code 2. cleaning 3. sentiment analysis. This is the file we need to get the result stored in the extraction_result folder.
+
 ## Individual_file_extraction.py:
 
 This file allows you to extract the MDA text from an individual filing. It takes the path to the filing as input and displays the extracted MDA text in the IDE.
-
 
 ## Sentiment_analysis.py:
 
@@ -15,5 +19,7 @@ An example code for 1 report for both 10-Q and 10-K with extraction and sentimen
 
 ## 2018192022 stats analysis
 
-contains visuals that will be presented as deliverables, will have to keep modify it as we improve flagging reasoning before presentation.
+Contains visuals that will be presented as deliverables, will have to keep modify it as we improve flagging reasoning before presentation.
 
+## Regression.py
+Contains our methodology on how we want to see the relation between stock price and word count
