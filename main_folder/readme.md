@@ -7,6 +7,9 @@ Contains python script which contains module of our extraction Algorithm, python
 
 This file allows you to extract the MDA text from an individual filing. It takes the path to the filing as input and displays the extracted MDA text in the IDE.
 
+## Bold_text.py:
+an alternation of individual_File_extraction.py, in this code, MDA is extraction by using regular expression to search for heading occurances and stored in index, by locating headers index, we extract everything in between.
+
 ## Sentiment_analysis.py:
 
 This is our first way to find a sentiment score, to use the code you need to input a clean MDA section to the function called 'evaluate'.
