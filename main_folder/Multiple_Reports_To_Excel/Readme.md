@@ -14,8 +14,8 @@
 
 ### If the file for 2022 year, 2022-01-03 for CIK-1013237 is here:
 
-### /Users/hasanallahyarov/Desktop/2022/20220103/1013237/0001013237-22-000005.txt
+### /Users/hasanallahyarov/Desktop/All_reports/20220103/1013237/0001013237-22-000005.txt
 
 ### The nested structure should be as shown above, then the below code will loop through whole 2022 folder.
 
-### extract('/Users/hasanallahyarov/Desktop/2022')
+### extract('/Users/hasanallahyarov/Desktop/All_reports')
