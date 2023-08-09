@@ -1,3 +1,65 @@
+# %%% Getting Prices
+
+
+
+
+df = pd.read_excel('C:\\Users\\hasanallahyarov\\Desktop\\result.xlsx')
+
+
+
+# Convert the 'Filed_At' column to datetime format
+df['Filed_At'] = pd.to_datetime(df['Filed_At'], format='%Y%m%d')
+
+# Convert the datetime format back to the desired format "YYYY-MM-DD"
+df['Filed_At'] = df['Filed_At'].dt.strftime('%Y-%m-%d')
+df['Price'] = None  
+df['Price+1'] = None
+
+
+for i in df.index:
+    print(i)
+    ticker=df['ticker'].iloc[i]
+    
+    if pd.notna(ticker):
+        GetInformation = yahooFinance.Ticker(ticker)
+    else:
+        continue
+
+    pd.set_option('display.max_rows', None)
+
+    prices = GetInformation.history(period="max")
+    
+ 
+    
+    prices.reset_index(inplace=True)
+    
+    prices['Date'] = pd.to_datetime(prices['Date'])
+    
+    prices['Date'] = prices['Date'].dt.strftime('%Y-%m-%d')
+    
+    desired_date = df['Filed_At'].iloc[i]
+    
+    
+    result_df = prices[prices['Date'] == desired_date]
+    
+    if not result_df.empty:
+        index_of_date = result_df.index[0]
+    else:
+        continue
+    
+    price_of_day = prices['Close'].iloc[index_of_date]
+    
+    price_of_next_day = prices['Close'].iloc[index_of_date+1]
+    
+    df.at[i, 'Price'] = price_of_day
+    
+    df.at[i, 'Price+1'] = price_of_next_day
+    
+df.to_excel('C:\\Users\\hasanallahyarov\\Desktop\\result_with_prices.xlsx', index=False)
+    
+    
+    
+# %%%
 df = pd.read_excel('C:\\Users\\hasanallahyarov\\Desktop\\10q_ with_prices.xlsx')
 
 df['Percentage_Diff'] = ((df['Price+1'] - df['Price']) / df['Price']) * 100
