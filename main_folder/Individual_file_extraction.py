@@ -61,7 +61,10 @@ def extract(file_name):
         extracted_text=""
     if start_index_1==-1:
         extracted_text=''
+    return extracted_text
 
+    
+def clean(extracted_text):
     html_text = extracted_text
     # Create a BeautifulSoup object
     soup = BeautifulSoup(html_text, 'html.parser')
