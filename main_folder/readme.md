@@ -12,17 +12,8 @@ an alternation of individual_File_extraction.py, in this code, MDA is extraction
 
 ## Sentiment_analysis.py:
 
-This is our first way to find a sentiment score, to use the code you need to input a clean MDA section to the function called 'evaluate'.
+To use the code you need to input a clean MDA section to the function called 'evaluate'.
 We first divided the clean MDA into sentences, then calculate the percentage of FLS to all sentences, and find a sentiment score of only FLS sentences.
-
-
-## Demo.py:
-
-An example code for 1 report for both 10-Q and 10-K with extraction and sentiment score.
-
-## 2018192022 stats analysis
-
-Contains visuals that will be presented as deliverables, will have to keep modify it as we improve flagging reasoning before presentation.
 
 ## Regression.py
 Contains our methodology on how we want to see the relation between stock price and word count
